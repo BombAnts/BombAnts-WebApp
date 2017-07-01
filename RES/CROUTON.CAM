@@ -1,0 +1,22 @@
+; Campaign stage information file.
+; Field descriptions:
+;	0. campaign name
+;	1. levelno
+;	2. scheme to use
+;	3. number of rovers
+;	4. rover speed
+;	5. number of ghosts
+;	6. ghost speed
+;	7. number of AIs
+;	8. AI difficulty (0-100) (unused at present)
+
+-C,Pepper Croutons,          1,basic,    1,200, 1,150, 0, 50
+-C,Garlic Croutons,          0,clear,    0,  0, 2,160, 1, 50
+-C,Cheese Croutons,          3,toilet,   2,200, 3,170, 1, 50
+-C,Chive Croutons,           1,airmail,  1,400, 4,180, 3, 50
+-C,Plain Croutons,           0,asylum,   0,  0, 5,190, 2, 50
+-C,Onion Croutons,           3,basic,    4,400, 6,200, 1, 50
+-C,Caesar Croutons,          1,basic,    0,  0, 7,230, 0, 50
+-C,Parmesan Croutons,        0,basic,    5,500, 8,240, 1, 50
+-C,Stale Croutons,           3,basic,    0,  0, 9,250, 1, 50
+
