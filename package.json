@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --reporter spec",
     "dev": "webpack -d --watch",
-    "build" : "webpack -p"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "path": "^0.12.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-websocket": "^1.1.7",
     "webpack": "^3.1.0"
   },
   "devDependencies": {
