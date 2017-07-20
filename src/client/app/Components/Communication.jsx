@@ -7,13 +7,10 @@ class Communication extends React.Component {
     constructor(props) {
         super(props);
 
-        var self = this;
-
         this.connection = new WebSocket('ws://192.168.34.10:80');
         this.connection.onopen = function () {
-            self.send({
-                "path" : "/login"
-            });
+            var event = new CustomEvent('server.connected');
+            document.dispatchEvent(event);
         };
 
         this.connection.onerror = function (error) {
@@ -40,27 +37,43 @@ class Communication extends React.Component {
             var message = e.detail;
             self.token = message.token;
 
-            self.send({
-                token: self.token,
-                path: "/games/create",
-                data: {
-                    name:'test game'
-                }
-            });
-
-            self.send({
-                "token": self.token,
-                "path": "/games"
-            });
+            // self.send({
+            //     token: self.token,
+            //     path: "/games/create",
+            //     data: {
+            //         name:'test game'
+            //     }
+            // });
+            //
+            // self.send({
+            //     "token": self.token,
+            //     "path": "/games"
+            // });
         });
 
 
         document.addEventListener('game.list', function(e) {
             var message = e.detail;
-            console.log('GAME', message);
             message.data.forEach(function (game) {
                 console.log('Game', game);
             });
+        });
+
+        document.addEventListener('client.login', function(e) {
+            var message = e.detail;
+
+            self.login(message.userName);
+        });
+    }
+
+    login(playerName)
+    {
+        this.send({
+            "token": self.token,
+            "path": "/login",
+            data: {
+                name:playerName
+            }
         });
     }
 

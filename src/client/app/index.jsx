@@ -6,12 +6,18 @@ import Menu from './Components/menu/Menu.jsx';
 
 class App extends React.Component {
 
+    constructor(props)
+    {
+        super(props);
+
+        this.communication = <Communication/>;
+    }
 
     render () {
         return (
             <div>
-                <Menu/>
-                <Communication/>
+                {this.communication}
+                <Menu />
             </div>
         )
     }

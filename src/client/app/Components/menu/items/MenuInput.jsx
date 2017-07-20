@@ -4,27 +4,30 @@ class MenuInput extends React.Component
 {
     constructor(props)
     {
-        if (props.name === undefined) {
-            props.name = 'MenuItem';
-        }
-
         super(props);
 
-        this.onClick = this.onClick.bind(this)
+        this.onInput = this.onInput.bind(this)
     }
 
-    onClick()
+    onInput(e)
     {
-        if (this.props.onClick === undefined) {
+        this.onChange(e.target.value);
+    }
+
+    onChange(value)
+    {
+        if (this.props.onChange === undefined) {
             return;
         }
 
-        this.props.onClick();
+        this.props.onChange(value);
     }
 
     render() {
         return (
-            <div onClick={this.onClick} className="menuItemContainer">{this.props.name}</div>
+            <div className="menuItemContainer">
+                <input onInput={this.onInput} type="text" placeholder={this.props.placeholder} />
+            </div>
         );
     }
 }

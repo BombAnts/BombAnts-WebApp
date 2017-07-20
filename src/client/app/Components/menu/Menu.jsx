@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Main from './Main.jsx';
+import Loading from './Loading.jsx';
 import Login from './Login.jsx';
 import GameJoin from './GameJoin.jsx';
 import GameCreate from './GameCreate.jsx';
@@ -13,15 +14,13 @@ class Menu extends React.Component
     {
         super(props);
 
+        var self = this;
+
         this.showMain = this.showMain.bind(this);
         this.showGameJoin = this.showGameJoin.bind(this);
         this.showGameCreate = this.showGameCreate.bind(this);
 
         // cache the menu's
-        this.mainMenu = <Main
-            showGameJoin={this.showGameJoin}
-            showGameCreate={this.showGameCreate}
-        />;
         this.gameJoinMenu = <GameJoin
             showMain={this.showMain}
             showGameCreate={this.showGameCreate}
@@ -30,12 +29,29 @@ class Menu extends React.Component
             showMain={this.showMain}
             showGameJoin={this.showGameJoin}
         />;
+        this.loadingMenu = <Loading
+            showLogin={this.showLogin}
+            text="CONNECTING"
+        />;
         this.loginMenu = <Login
             showMain={this.showMain}
         />;
+        this.mainMenu = <Main
+            showGameJoin={this.showGameJoin}
+            showGameCreate={this.showGameCreate}
+        />;
+
+        // event listeners
+        document.addEventListener('server.connected', function(e) {
+            self.showLogin();
+        });
+
+        document.addEventListener('user.authenticated', function(e){
+            self.showMain();
+        });
 
         this.state = {
-            menu : this.mainMenu
+            menu : this.loadingMenu
         };
     }
 
@@ -44,14 +60,19 @@ class Menu extends React.Component
         this.setState({menu: this.mainMenu});
     }
 
+    showGameCreate()
+    {
+        this.setState({menu: this.gameCreateMenu});
+    }
+
     showGameJoin()
     {
         this.setState({menu: this.gameJoinMenu});
     }
 
-    showGameCreate()
+    showLogin()
     {
-        this.setState({menu: this.gameCreateMenu});
+        this.setState({menu: this.loginMenu});
     }
 
     render() {
