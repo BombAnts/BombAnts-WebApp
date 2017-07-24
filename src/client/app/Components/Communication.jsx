@@ -18,13 +18,13 @@ class Communication extends React.Component {
         };
 
         this.connection.onmessage = function (e) {
-            console.log('Receive:', e.data)
+            // console.log('Receive:', e.data)
             var message = JSON.parse(e.data);
 
             var event = new CustomEvent(message.event, {'detail': message });
             document.dispatchEvent(event);
 
-            console.log(message);
+            // console.log(message);
         };
 
         this.initializeEventListeners();
@@ -37,32 +37,28 @@ class Communication extends React.Component {
             var message = e.detail;
             self.token = message.token;
 
-            // self.send({
-            //     token: self.token,
-            //     path: "/games/create",
-            //     data: {
-            //         name:'test game'
-            //     }
-            // });
-            //
-            // self.send({
-            //     "token": self.token,
-            //     "path": "/games"
-            // });
-        });
-
-
-        document.addEventListener('game.list', function(e) {
-            var message = e.detail;
-            message.data.forEach(function (game) {
-                console.log('Game', game);
-            });
+/*            self.send({
+                token: self.token,
+                path: "/games/create",
+                data: {
+                    name:'test game'
+                }
+            });*/
         });
 
         document.addEventListener('client.login', function(e) {
             var message = e.detail;
 
             self.login(message.userName);
+        });
+
+        document.addEventListener('client.menuJoinGame', function(e) {
+
+
+            self.send({
+                "token": self.token,
+                "path": "/games"
+            });
         });
     }
 
@@ -77,14 +73,8 @@ class Communication extends React.Component {
         });
     }
 
-    handleData(data) {
-        let result = JSON.parse(data);
-        console.log('new message:');
-        console.log(result);
-    }
-
     send(message) {
-        console.log('Send:', message);
+        // console.log('Send:', message);
         this.connection.send(JSON.stringify(message));
     }
 
