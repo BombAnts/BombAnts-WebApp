@@ -53,11 +53,21 @@ class Communication extends React.Component {
         });
 
         document.addEventListener('client.menuJoinGame', function(e) {
-
-
             self.send({
                 "token": self.token,
                 "path": "/games"
+            });
+        });
+
+        document.addEventListener('client.gameCreate', function(e) {
+            var message = e.detail;
+
+            self.send({
+                token: self.token,
+                path: "/games/create",
+                data: {
+                    name:message.name
+                }
             });
         });
     }
