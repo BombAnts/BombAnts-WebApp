@@ -9,7 +9,7 @@ class LoginMenu extends React.Component
         super(props);
 
         this.state = {
-            'userName' : null
+            userName : null
         };
 
         this.onUsername = this.onUsername.bind(this);
@@ -18,12 +18,16 @@ class LoginMenu extends React.Component
 
     onUsername(value)
     {
-        this.state.username = value;
+        this.state.userName = value;
     }
 
     login()
     {
-        var event = new CustomEvent('client.login', {'detail': {'userName' : this.state.username} });
+        if (this.state.userName === null) {
+            return;
+        }
+
+        var event = new CustomEvent('client.login', {'detail': {'userName' : this.state.userName} });
         document.dispatchEvent(event);
     }
 

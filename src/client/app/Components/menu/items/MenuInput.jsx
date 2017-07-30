@@ -7,6 +7,7 @@ class MenuInput extends React.Component
         super(props);
 
         this.onInput = this.onInput.bind(this)
+        this.isValid = this.isValid.bind(this)
     }
 
     onInput(e)
@@ -20,7 +21,17 @@ class MenuInput extends React.Component
             return;
         }
 
+        if (!this.isValid(value)) {
+            this.props.onChange(null);
+            return;
+        }
+
         this.props.onChange(value);
+    }
+
+    isValid(value)
+    {
+        return value.length > 0;
     }
 
     render() {
